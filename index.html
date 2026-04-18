@@ -1,0 +1,2247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interview Prep — Habitat Energy</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f8f7f4;
+    --white: #ffffff;
+    --border: #e2ddd6;
+    --border-dark: #c8c0b4;
+    --text: #1a1714;
+    --text-secondary: #6b6560;
+    --text-light: #9e9790;
+    --accent: #1d5c3a;
+    --accent-light: #e8f2ec;
+    --accent-mid: #2d7a50;
+    --amber: #92580a;
+    --amber-light: #fdf3e3;
+    --blue: #1a3d6b;
+    --blue-light: #e8eef6;
+    --red: #8b1d1d;
+    --red-light: #fdf0f0;
+    --sans: 'Inter', sans-serif;
+    --serif: 'Lora', serif;
+    --radius: 3px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* Top bar */
+  .topbar {
+    background: var(--accent);
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .topbar-brand {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .topbar-role {
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.03em;
+  }
+
+  /* Layout */
+  .layout {
+    display: flex;
+    max-width: 1100px;
+    margin: 0 auto;
+    min-height: calc(100vh - 42px);
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    border-right: 1px solid var(--border);
+    padding: 28px 0;
+    background: var(--white);
+    position: sticky;
+    top: 0;
+    height: calc(100vh - 42px);
+    overflow-y: auto;
+  }
+
+  .sidebar-section {
+    margin-bottom: 6px;
+  }
+
+  .sidebar-heading {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    padding: 6px 20px;
+    margin-top: 16px;
+    margin-bottom: 2px;
+  }
+
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-left: 2px solid transparent;
+    transition: all 0.15s;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+  }
+
+  .sidebar-item:hover {
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .sidebar-item.active {
+    border-left: 2px solid var(--accent);
+    background: var(--accent-light);
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .sidebar-item .count {
+    margin-left: auto;
+    font-size: 11px;
+    color: var(--text-light);
+    font-weight: 400;
+  }
+
+  .sidebar-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 12px 20px;
+  }
+
+  /* Main content */
+  .main {
+    flex: 1;
+    padding: 36px 40px;
+    max-width: 760px;
+  }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* Page header */
+  .page-header {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .page-title {
+    font-family: var(--serif);
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  .page-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* Q&A Cards */
+  .qa-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 8px;
+    overflow: hidden;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .qa-card:hover {
+    border-color: var(--border-dark);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  .qa-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .qa-num {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    min-width: 22px;
+    padding-top: 2px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .qa-question {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.45;
+  }
+
+  .qa-chevron {
+    color: var(--text-light);
+    font-size: 16px;
+    line-height: 1;
+    transition: transform 0.2s;
+    min-width: 14px;
+    margin-top: 2px;
+  }
+
+  .qa-card.open .qa-chevron {
+    transform: rotate(180deg);
+    color: var(--accent);
+  }
+
+  .qa-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .qa-card.open .qa-body { max-height: 800px; }
+
+  .qa-content {
+    border-top: 1px solid var(--border);
+    padding: 16px 16px 16px 52px;
+  }
+
+  .answer-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 8px;
+  }
+
+  .answer-text {
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: var(--text-secondary);
+  }
+
+  .answer-text strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .callout {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: var(--radius);
+    font-size: 12.5px;
+    line-height: 1.6;
+  }
+
+  .callout-tip {
+    background: var(--amber-light);
+    border-left: 3px solid #e09020;
+    color: var(--amber);
+  }
+
+  .callout-tip strong { color: #7a4a08; }
+
+  .callout-tech {
+    background: var(--blue-light);
+    border-left: 3px solid #4a7dc0;
+    color: var(--blue);
+  }
+
+  .callout-tech strong { color: #12326b; }
+
+  /* Category divider */
+  .cat-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 28px 0 12px;
+  }
+
+  .cat-divider:first-child { margin-top: 0; }
+
+  .cat-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+
+  .cat-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Practice page */
+  .practice-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .field-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+  }
+
+  select, textarea {
+    width: 100%;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 13.5px;
+    padding: 10px 12px;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    appearance: none;
+  }
+
+  select:focus, textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(29,92,58,0.08);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 130px;
+    line-height: 1.65;
+  }
+
+  textarea::placeholder { color: var(--text-light); }
+
+  .char-hint {
+    font-size: 11px;
+    color: var(--text-light);
+    margin-top: 5px;
+    text-align: right;
+  }
+
+  .active-question-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+  }
+
+  .aq-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .aq-text {
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.45;
+  }
+
+  .btn-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--sans);
+    font-size: 12.5px;
+    font-weight: 500;
+    padding: 9px 18px;
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.01em;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .btn-primary:hover { background: var(--accent-mid); }
+  .btn-primary:disabled {
+    background: #a0b8ab;
+    cursor: not-allowed;
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+  }
+
+  .btn-ghost:hover {
+    background: var(--bg);
+    color: var(--text);
+    border-color: var(--border-dark);
+  }
+
+  /* Feedback */
+  .feedback-panel {
+    display: none;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .feedback-panel.show { display: block; }
+
+  .feedback-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .feedback-top-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  .score-pill {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 12px;
+    border-radius: 20px;
+  }
+
+  .score-high { background: var(--accent-light); color: var(--accent); }
+  .score-mid { background: var(--amber-light); color: var(--amber); }
+  .score-low { background: var(--red-light); color: var(--red); }
+  .score-loading { background: var(--border); color: var(--text-light); }
+
+  .feedback-body {
+    padding: 18px;
+  }
+
+  .verdict {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .fb-section {
+    margin-bottom: 14px;
+  }
+
+  .fb-section-title {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+  }
+
+  .fb-positive { color: var(--accent); }
+  .fb-improve { color: var(--amber); }
+
+  .fb-list {
+    list-style: none;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .fb-list li {
+    padding-left: 14px;
+    position: relative;
+    margin-bottom: 4px;
+  }
+
+  .fb-list li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--text-light);
+  }
+
+  .suggestion-box {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-top: 14px;
+  }
+
+  .suggestion-box strong { color: var(--text); }
+
+  /* PDF reference tags */
+  .pdf-refs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .pdf-ref-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    width: 100%;
+    margin-bottom: 2px;
+  }
+
+  .pdf-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11.5px;
+    padding: 4px 10px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    color: var(--blue);
+    background: var(--blue-light);
+    text-decoration: none;
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+
+  .pdf-tag:hover {
+    border-color: var(--blue);
+    background: #dce6f4;
+    text-decoration: none;
+  }
+
+  .pdf-tag svg {
+    width: 12px; height: 12px;
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  /* Spinner */
+  .spinner {
+    display: inline-block;
+    width: 14px; height: 14px;
+    border: 2px solid rgba(29,92,58,0.2);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Overview page */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .stat-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+  }
+
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 28px;
+    color: var(--accent);
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .overview-section {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 12px;
+  }
+
+  .overview-section h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .overview-section p, .overview-section li {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  .overview-section ul {
+    padding-left: 16px;
+    margin-top: 6px;
+  }
+
+  .overview-section li { margin-bottom: 3px; }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .tag {
+    font-size: 11.5px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    background: var(--bg);
+  }
+
+  @media (max-width: 700px) {
+    .sidebar { display: none; }
+    .main { padding: 16px 14px 90px; }
+    .overview-grid { grid-template-columns: 1fr 1fr; }
+    .topbar-role { display: none; }
+    .topbar-brand { font-size: 11px; }
+    .page-title { font-size: 20px; }
+    .qa-question { font-size: 13px; }
+    .qa-content { padding: 14px 14px 14px 14px; }
+    .qa-num { display: none; }
+    .answer-text { font-size: 13px; }
+    .stat-num { font-size: 22px; }
+    .overview-section { padding: 14px; }
+    .pdf-tag { font-size: 11px; }
+    select, textarea { font-size: 16px; } /* prevent iOS zoom */
+    .layout { min-height: calc(100vh - 42px - 60px); }
+  }
+
+  /* ── Mobile bottom nav ── */
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    z-index: 100;
+    padding: 0;
+    height: 60px;
+  }
+
+  .mobile-nav-inner {
+    display: flex;
+    height: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .mobile-nav-inner::-webkit-scrollbar { display: none; }
+
+  .mobile-nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    flex: 0 0 auto;
+    min-width: 70px;
+    padding: 6px 8px;
+    font-family: var(--sans);
+    font-size: 9.5px;
+    font-weight: 500;
+    color: var(--text-light);
+    background: none;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: color 0.15s;
+    white-space: nowrap;
+  }
+
+  .mobile-nav-btn svg {
+    width: 20px; height: 20px;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    fill: none;
+    flex-shrink: 0;
+    transition: stroke 0.15s;
+  }
+
+  .mobile-nav-btn.active {
+    color: var(--accent);
+  }
+
+  .mobile-nav-btn.active svg {
+    stroke: var(--accent);
+  }
+
+  @media (max-width: 700px) {
+    .mobile-nav { display: block; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="topbar-brand">Habitat Energy — Interview Preparation</span>
+  <span class="topbar-role">Scheduling &amp; Operations Analyst · Oxford</span>
+</div>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-heading">Navigation</div>
+      <button class="sidebar-item active" onclick="showPage('overview', this)">
+        Overview
+      </button>
+      <button class="sidebar-item" onclick="showPage('practice', this)">
+        Practice Mode
+      </button>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-heading">Questions by Category</div>
+      <button class="sidebar-item" onclick="showPage('behavioural', this)">
+        Behavioural <span class="count">8</span>
+      </button>
+      <button class="sidebar-item" onclick="showPage('technical-markets', this)">
+        Energy Markets <span class="count">14</span>
+      </button>
+      <button class="sidebar-item" onclick="showPage('technical-ops', this)">
+        Live Operations <span class="count">7</span>
+      </button>
+      <button class="sidebar-item" onclick="showPage('technical-data', this)">
+        Data &amp; Excel <span class="count">4</span>
+      </button>
+      <button class="sidebar-item" onclick="showPage('motivation', this)">
+        Motivation &amp; Fit <span class="count">4</span>
+      </button>
+      <button class="sidebar-item" onclick="showPage('resources', this)">
+        PDF Resources
+      </button>
+      <button class="sidebar-item" onclick="showPage('sources', this)">
+        Sources &amp; References
+      </button>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-heading">Session Score</div>
+      <div id="sidebarScore" style="padding:8px 20px">
+        <div style="font-size:11px;color:var(--text-light);line-height:1.5">No answers evaluated yet.<br>Use Practice Mode to begin.</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+    <!-- OVERVIEW -->
+    <div class="page active" id="page-overview">
+      <div class="page-header">
+        <div class="page-label">Interview Preparation</div>
+        <div class="page-title">Scheduling &amp; Operations Analyst</div>
+        <div class="page-desc">Habitat Energy · Oxford, UK · Full-time, shift rotation</div>
+      </div>
+
+      <div class="overview-grid">
+        <div class="stat-card"><div class="stat-num">31</div><div class="stat-label">Total questions</div></div>
+        <div class="stat-card"><div class="stat-num">5</div><div class="stat-label">Categories</div></div>
+        <div class="stat-card"><div class="stat-num">24/7</div><div class="stat-label">Operations coverage</div></div>
+        <div class="stat-card"><div class="stat-num">3–4</div><div class="stat-label">Interview rounds (typical)</div></div>
+      </div>
+
+      <div class="overview-section">
+        <h3>What the role involves</h3>
+        <p>You'll sit within the trading team and provide around-the-clock coverage for Habitat's portfolio of battery storage assets. Day-to-day this means monitoring live assets against expected dispatch, responding to anomalies, ensuring trader instructions are executed correctly, confirming positions with counterparties, and producing performance and incident reports.</p>
+      </div>
+
+      <div class="overview-section">
+        <h3>What they're really screening for</h3>
+        <ul>
+          <li><strong>Operational composure</strong> — can you stay accurate and calm when something goes wrong at 2am?</li>
+          <li><strong>Attention to detail</strong> — trade confirmation errors have direct P&amp;L consequences</li>
+          <li><strong>Decisiveness</strong> — explicitly listed in the JD; they want someone who acts, not waits</li>
+          <li><strong>Market awareness</strong> — you don't need to be a trader, but you need to understand the revenue context</li>
+          <li><strong>Excel competency</strong> — a hard requirement; expect a test</li>
+          <li><strong>Genuine interest in energy storage</strong> — generic "passion for renewables" won't cut it</li>
+        </ul>
+      </div>
+
+      <div class="overview-section">
+        <h3>Key markets &amp; concepts to know</h3>
+        <div class="tag-row">
+          <span class="tag">Wholesale electricity</span>
+          <span class="tag">Balancing Mechanism (BM)</span>
+          <span class="tag">Dynamic Containment (DC)</span>
+          <span class="tag">Firm Frequency Response (FFR)</span>
+          <span class="tag">Dynamic Regulation (DR)</span>
+          <span class="tag">STOR</span>
+          <span class="tag">State of Charge (SoC)</span>
+          <span class="tag">Physical Notifications (PNs)</span>
+          <span class="tag">Bid-Offer Acceptance (BOA)</span>
+          <span class="tag">NESO / Elexon</span>
+          <span class="tag">Cycle degradation</span>
+          <span class="tag">Capacity Market</span>
+        </div>
+      </div>
+
+      <div class="overview-section">
+        <h3>Process (based on Glassdoor reports)</h3>
+        <ul>
+          <li>Round 1: 30-minute recruiter phone screen</li>
+          <li>Round 2: Technical/competency interview with hiring manager and traders</li>
+          <li>Round 3: In-person Oxford — panel with traders, data scientists, potentially COO</li>
+          <li>May include an Excel proficiency test or take-home task</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PRACTICE -->
+    <div class="page" id="page-practice">
+      <div class="page-header">
+        <div class="page-label">Practice Mode</div>
+        <div class="page-title">Answer &amp; Get Evaluated</div>
+        <div class="page-desc">Write your answer and receive AI feedback on structure, relevance, and specificity.</div>
+      </div>
+
+      <div class="practice-layout">
+        <div>
+          <div class="field-label">Select a question</div>
+          <select id="qSelect" onchange="onSelectQ()">
+            <option value="">— Choose a question —</option>
+            <optgroup label="Behavioural">
+              <option value="b1">Tell me about a time you managed multiple urgent tasks simultaneously.</option>
+              <option value="b2">Describe a time you caught an error others missed. What was the impact?</option>
+              <option value="b3">Tell me about a time you had to make a decision quickly with incomplete information.</option>
+              <option value="b4">Describe a situation where you had to escalate an issue. How did you handle it?</option>
+              <option value="b5">Give an example of when you improved a process or introduced a more efficient way of working.</option>
+              <option value="b6">Tell me about a time you worked a non-standard schedule or under sustained operational pressure.</option>
+              <option value="b7">Describe a time you had to communicate a complex technical issue to a non-technical stakeholder.</option>
+              <option value="b8">Tell me about a time a project or task didn't go to plan. What did you do?</option>
+            </optgroup>
+            <optgroup label="Energy Markets — Technical">
+              <option value="m1">Explain how a battery storage asset generates revenue across multiple markets.</option>
+              <option value="m2">What is the Balancing Mechanism and how does a battery participate in it?</option>
+              <option value="m3">What is Dynamic Containment and why is it valuable for battery storage?</option>
+              <option value="m4">What is the difference between FFR and Dynamic Containment?</option>
+              <option value="m5">What is a Physical Notification (PN) and why does it matter operationally?</option>
+              <option value="m6">How does state of charge (SoC) affect a battery's ability to participate in ancillary services?</option>
+              <option value="m7">What factors determine whether a battery should prioritise wholesale arbitrage vs ancillary services on a given day?</option>
+              <option value="m8">What is the role of NESO (formerly National Grid ESO) and how does it interact with market participants?</option>
+              <option value="m9">What is a Bid-Offer Acceptance (BOA) and what happens operationally when one is issued?</option>
+              <option value="m10">What is imbalance settlement and why does it matter if a battery deviates from its PN without a BOA?</option>
+              <option value="m11">What are the main BESS revenue streams and how do they differ commercially?</option>
+              <option value="m12">How do batteries participate in frequency regulation and what operational constraints does this create?</option>
+              <option value="m13">What is BSUoS and who ultimately pays for the cost of balancing?</option>
+              <option value="m14">What is a Settlement Period and why does the half-hourly structure matter for battery dispatch?</option>
+            </optgroup>
+            <optgroup label="Live Operations — Technical">
+              <option value="o1">Walk me through how you would monitor a live battery asset and detect anomalies.</option>
+              <option value="o2">An asset is not responding to a dispatch instruction. What do you do?</option>
+              <option value="o3">How would you write an incident report after an asset failure?</option>
+              <option value="o4">What would you check first if an asset's state of charge was reading unexpectedly high or low?</option>
+              <option value="o5">How do you ensure a clean handover at the end of your shift?</option>
+              <option value="o6">What's the difference between a curtailment event and an asset fault? How would you tell them apart?</option>
+              <option value="o7">How would you manage warranty condition tracking for a portfolio of battery assets?</option>
+            </optgroup>
+            <optgroup label="Data & Excel — Technical">
+              <option value="d1">Walk me through how you would use Excel in this role.</option>
+              <option value="d2">How would you build a performance monitoring report for a portfolio of battery assets?</option>
+              <option value="d3">Describe how you've used data analysis to support a decision or identify a problem.</option>
+              <option value="d4">If you received a dataset of half-hourly asset dispatch vs. scheduled dispatch, how would you analyse it?</option>
+            </optgroup>
+            <optgroup label="Motivation & Fit">
+              <option value="f1">Why energy storage specifically? Why not a more traditional energy role?</option>
+              <option value="f2">Why Habitat Energy? What do you know about how we differentiate ourselves?</option>
+              <option value="f3">How do you feel about shift rotations including nights and weekends?</option>
+              <option value="f4">Where do you see this role taking your career in 2–3 years?</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div id="practiceQuestionDisplay" style="display:none">
+          <div class="active-question-box">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+              <div class="aq-label" style="margin-bottom:0">Your Question</div>
+              <div id="timerDisplay" style="display:flex;align-items:center;gap:8px">
+                <span id="timerLabel" style="font-size:11px;font-weight:600;letter-spacing:0.06em;color:var(--text-light);text-transform:uppercase">Timer</span>
+                <span id="timerValue" style="font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--text-secondary);min-width:42px">0:00</span>
+                <button class="btn btn-ghost" id="timerBtn" onclick="toggleTimer()" style="padding:4px 10px;font-size:11px">Start</button>
+              </div>
+            </div>
+            <div class="aq-text" id="activeQText"></div>
+          </div>
+          <!-- Timer progress bar -->
+          <div id="timerBar" style="height:3px;background:var(--border);margin-top:-1px;border-radius:0 0 3px 3px;overflow:hidden">
+            <div id="timerBarFill" style="height:100%;width:0%;background:var(--accent);transition:background 0.5s"></div>
+          </div>
+        </div>
+
+        <div id="answerArea" style="display:none">
+          <div class="field-label">Your Answer</div>
+          <textarea id="answerInput" placeholder="Write your answer here. Aim for 3–6 sentences with at least one specific example." oninput="onTypeAnswer()"></textarea>
+          <div class="char-hint"><span id="charCount">0</span> characters</div>
+
+          <div class="btn-row" style="margin-top:12px">
+            <button class="btn btn-primary" id="evalBtn" onclick="runEval()" disabled>
+              Evaluate Answer
+            </button>
+            <button class="btn btn-ghost" onclick="clearPractice()">Clear</button>
+          </div>
+        </div>
+
+        <!-- Session score bar -->
+        <div id="sessionScoreBar" style="display:none;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <span style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-secondary)">Session Progress</span>
+            <span id="sessionScoreText" style="font-size:12px;font-weight:600;color:var(--accent)"></span>
+          </div>
+          <div style="background:var(--bg);border-radius:2px;height:6px;overflow:hidden">
+            <div id="sessionScoreFill" style="height:100%;width:0%;background:var(--accent);transition:width 0.4s,background 0.4s;border-radius:2px"></div>
+          </div>
+          <div id="sessionHistory" style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px"></div>
+        </div>
+
+        <div class="feedback-panel" id="feedbackPanel">
+          <div class="feedback-top">
+            <span class="feedback-top-title">Evaluation</span>
+            <span class="score-pill score-loading" id="scorePill">—</span>
+          </div>
+          <div class="feedback-body" id="feedbackContent">
+            <span class="spinner"></span> Evaluating...
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BEHAVIOURAL -->
+    <div class="page" id="page-behavioural">
+      <div class="page-header">
+        <div class="page-label">Category 1 of 5</div>
+        <div class="page-title">Behavioural Questions</div>
+        <div class="page-desc">Competency-based questions assessing your past behaviour as a predictor of performance in this role. Use the STAR method: Situation, Task, Action, Result.</div>
+      </div>
+
+      <div class="cat-divider"><span class="cat-label">Prioritisation &amp; Pressure</span><div class="cat-line"></div></div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">B01</span>
+          <span class="qa-question">Tell me about a time you had to manage multiple urgent tasks simultaneously. How did you prioritise?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "In my previous role, two concurrent deadlines landed on the same morning — a live reporting issue affecting a client and a routine data reconciliation that was also due. I triaged using a simple framework: <strong>impact on live operations first, then time-sensitivity of downstream consequences</strong>. I messaged the relevant team lead on the reconciliation to flag a short delay, then resolved the client issue within 30 minutes. Once that was closed, I completed the reconciliation. I've found that communicating quickly when something will be delayed is more important than staying silent and hoping you can do both."
+          </div>
+          <div class="callout callout-tip">
+            <strong>What they're assessing:</strong> This role has a 24/7 shift structure. Multiple things can go wrong simultaneously on live assets. They want evidence of a clear, replicable prioritisation logic — not just "I work well under pressure."
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">B02</span>
+          <span class="qa-question">Describe a situation where you caught an error that others missed. What was the impact?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "While reviewing a batch of trade confirmations, I noticed a position reference had been entered as a buy instead of a sell — a one-character difference in a code. Others had signed off on it. I flagged it before settlement, which prevented a financial discrepancy and a counterparty dispute. I then proposed adding a mandatory cross-check step in our confirmation workflow. <strong>The key was that I wasn't rushing through the check — I'd learned to read confirmations against the original instruction, not just scan for obvious errors.</strong>"
+          </div>
+          <div class="callout callout-tip">
+            <strong>Why it matters here:</strong> Accurate nomination of traded positions with counterparties is explicitly listed as a responsibility. An error here can be costly and legally significant.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">B03</span>
+          <span class="qa-question">Tell me about a time you had to make a decision quickly with incomplete information.</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "During a system outage, I had partial telemetry — I couldn't confirm whether a fault was in our monitoring layer or the asset itself. Rather than wait for full information, I <strong>escalated immediately while continuing to gather data in parallel</strong>. That decision gave the technical team a 15-minute head start, which meaningfully shortened resolution time. I've learned that in live operations, escalating early with caveats is almost always better than waiting for certainty."
+          </div>
+          <div class="callout callout-tip">
+            <strong>What they're assessing:</strong> "Decisive and able to use own initiative" is a literal requirement in the job description. Don't undersell this — they're testing whether you'd freeze during an out-of-hours asset event.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">B04</span>
+          <span class="qa-question">Describe a situation where you had to escalate an issue. How did you handle it?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "A data feed we relied on for daily reporting started producing inconsistent values. I investigated what I could — confirmed it wasn't a formatting issue on our end — and then escalated to the data engineering team with a clear summary: what I'd observed, what I'd ruled out, and what the potential downstream impact was. <strong>I didn't just say 'something's wrong' — I gave them a structured starting point.</strong> The issue was resolved within two hours because the escalation was specific. I also logged it and updated the incident tracker so it was on record."
+          </div>
+          <div class="callout callout-tip">
+            <strong>What they're assessing:</strong> Escalation is a core skill in this role. They want someone who escalates the right things, at the right time, with the right information — not someone who either escalates everything or tries to fix everything themselves.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">B05</span>
+          <span class="qa-question">Give an example of when you improved a process or introduced a more efficient way of working.</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "Our team was manually copying data from multiple sources into a weekly report spreadsheet — taking about 40 minutes each time. I built a simple Excel template using Power Query to pull and consolidate the data automatically. <strong>It cut the time to under five minutes and eliminated copy-paste errors.</strong> I documented it clearly so anyone on the team could maintain it. Process improvement doesn't always require a large project — often it's small friction points that, once removed, have a disproportionate impact."
+          </div>
+          <div class="callout callout-tip">
+            <strong>Why it matters:</strong> The role involves updating internal databases and generating reports routinely. Showing you actively look for efficiency improvements — especially in Excel — is a strong signal.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">B06</span>
+          <span class="qa-question">Tell me about a time you worked a non-standard schedule or under sustained operational pressure.</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "I've worked [on-call rotas / early morning shifts / weekend cover] and found that the key to managing non-standard hours is <strong>treating schedule management as seriously as task management</strong>. I plan recovery time deliberately, establish a pre-shift routine to get into a focused state, and keep a consistent handover format so I'm not starting each shift from zero. I'd also note that some of the most commercially significant events in energy markets — grid stress, price spikes — happen out of hours, which is exactly when this role adds the most value."
+          </div>
+          <div class="callout callout-tip">
+            <strong>Be genuine:</strong> If you haven't done shift work, focus on adaptability and logical commitment. But do not pretend you've done it if you haven't — they will probe.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">B07</span>
+          <span class="qa-question">Describe a time you had to communicate a complex technical issue to a non-technical stakeholder.</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "A system integration issue was causing delayed settlement data. I needed to brief a client who wasn't technical but needed to understand the potential financial impact. I avoided jargon — instead of explaining the root cause in technical detail, I focused on: <strong>what it meant for them, what we were doing about it, and when they'd have an update.</strong> I followed up in writing with a simple timeline. The client said they appreciated the clarity. In operations, the communication around an issue is often as important as fixing it."
+          </div>
+          <div class="callout callout-tip">
+            <strong>Relevant here:</strong> The role requires keeping clients and customers informed about asset conditions. You'll be bridging the gap between technical systems and commercial stakeholders.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">B08</span>
+          <span class="qa-question">Tell me about a time a task or project didn't go to plan. What did you do?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "A report I was responsible for contained an error that only surfaced after it had been distributed. My first action was to <strong>notify the relevant stakeholders immediately, before they discovered it themselves</strong> — owning it directly is far better than being caught. I corrected the report and sent an updated version with a clear note on what had changed. Then I traced back to find the root cause — a formula referencing the wrong column — and fixed the underlying template. I was more careful about QA after that, building in a separate check step before distribution."
+          </div>
+          <div class="callout callout-tip">
+            <strong>What they're looking for:</strong> Accountability, speed of response, and evidence that you learn from mistakes rather than repeat them. Avoid answers that blame others or minimise the error.
+          </div>
+        </div></div>
+      </div>
+
+    </div><!-- /behavioural -->
+
+    <!-- TECHNICAL: MARKETS -->
+    <div class="page" id="page-technical-markets">
+      <div class="page-header">
+        <div class="page-label">Category 2 of 5</div>
+        <div class="page-title">Energy Markets — Technical</div>
+        <div class="page-desc">Questions on GB electricity markets, battery storage economics, and market structures. Glassdoor confirms these are asked directly, including questions on FFR, Dynamic Containment, and market modelling.</div>
+      </div>
+
+      <div class="cat-divider"><span class="cat-label">Revenue Stacking &amp; Markets</span><div class="cat-line"></div></div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">M01</span>
+          <span class="qa-question">Explain how a battery storage asset generates revenue across multiple markets.</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "Battery storage assets can stack revenue across three main streams simultaneously. In the <strong>wholesale market</strong>, they charge when electricity is cheap (typically overnight or when renewables flood the grid) and discharge when prices are high — capturing the spread. In <strong>ancillary services</strong> (such as Dynamic Containment, Dynamic Regulation, or Firm Frequency Response), assets earn availability payments by holding capacity ready to respond to grid frequency deviations — often within 0.5–1 second. In the <strong>Balancing Mechanism</strong>, National Grid ESO can accept a battery's bids and offers in real time to correct supply/demand imbalances, generating additional income. Habitat's value proposition is optimising how and when an asset participates across all three simultaneously — maximising returns while managing degradation."
+          </div>
+          <div class="callout callout-tech">
+            <strong>Key insight:</strong> The three streams interact — committing to a frequency service means that capacity isn't available for arbitrage. Optimisation is about finding the right mix moment by moment.
+          </div>
+          <div class="pdf-refs">
+            <div class="pdf-ref-label">Revise in source documents</div>
+            <a class="pdf-tag" href="https://documents1.worldbank.org/curated/en/099536501202316060/pdf/IDU0edcfc32c0825f040f509c0b0bbf49294e569.pdf" target="_blank"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 1h6l4 4v10H4V1zm6 0v4h4M6 9h4M6 12h4M6 6h2"/></svg>World Bank BESS Guidelines — §3.3 + Fig. 9 (Revenue models: bulk shifting, ancillary, capacity)</a>
+            <a class="pdf-tag" href="https://www.caiso.com/documents/2024-special-report-on-battery-storage-may-29-2025.pdf" target="_blank"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 1h6l4 4v10H4V1zm6 0v4h4M6 9h4M6 12h4M6 6h2"/></svg>CAISO 2024 Battery Report — §1.2 + §2.9 (market revenue breakdown by stream)</a>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">M02</span>
+          <span class="qa-question">What is the Balancing Mechanism and how does a battery participate in it?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "The Balancing Mechanism (BM) is the real-time tool used by NESO to balance electricity supply and demand across GB. Generators and flexible assets submit <strong>Physical Notifications (PNs)</strong> — their planned import/export profile for each half-hour settlement period — along with bid and offer prices for deviating from that profile. If NESO needs more generation (or less demand), it accepts bids and offers accordingly, which is called a <strong>Bid-Offer Acceptance (BOA)</strong>. For a battery, this means it can offer to discharge (an 'offer') or charge (a 'bid') at a set price, and NESO may call on it in real time. Revenue comes from the accepted BOAs and can be significant during system stress events."
+          </div>
+          <div class="callout callout-tech">
+            <strong>Operational relevance:</strong> As a Scheduling Analyst, you'd be responsible for ensuring PNs are submitted accurately and on time. Late or incorrect PNs can result in imbalance charges.
+          </div>
+          <div class="pdf-refs">
+            <div class="pdf-ref-label">Revise in source documents</div>
+            <a class="pdf-tag" href="https://watt-logic.com/wp-content/uploads/2019/06/Beginners-Guide-to-the-GB-Electricity-Market.pdf" target="_blank"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 1h6l4 4v10H4V1zm6 0v4h4M6 9h4M6 12h4M6 6h2" stroke="currentColor" stroke-width="1" fill="none"/></svg>Elexon Beginner's Guide — pp. 2–3, 8–11 (Bids, Offers, BM, PNs)</a>
+            <a class="pdf-tag" href="https://www.neso.energy/document/288246/download" target="_blank"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 1h6l4 4v10H4V1zm6 0v4h4M6 9h4M6 12h4M6 6h2"/></svg>NESO Balancing Costs FAQ — "What is the BM?" (p. 3)</a>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">M03</span>
+          <span class="qa-question">What is Dynamic Containment and why is it particularly valuable for battery storage?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "Dynamic Containment (DC) is a post-fault frequency response service procured by NESO. It requires assets to respond <strong>within one second</strong> of a frequency deviation, delivering power proportionally to the size of the deviation — the response is dynamic rather than binary. It's split into DC High (responding to over-frequency) and DC Low (under-frequency). Batteries are ideally suited because they can respond in milliseconds, far faster than any thermal plant. NESO pays an availability payment per MW regardless of whether the asset is actually called upon, which makes DC a reliable, low-activity revenue stream — particularly attractive when wholesale spreads are thin."
+          </div>
+          <div class="callout callout-tech">
+            <strong>Key term:</strong> DC operates at ±0.5 Hz from 50 Hz. It is a post-fault service — meaning it kicks in after a significant event (like a large generator tripping), not continuously like Dynamic Regulation.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">M04</span>
+          <span class="qa-question">What is the difference between Firm Frequency Response (FFR) and Dynamic Containment?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "Both are frequency response services, but they differ in structure and timing. <strong>FFR (static):</strong> triggers at a fixed frequency threshold (typically 49.7 Hz), delivers a fixed power output within 30 seconds, and is sustained for 30 minutes. It is a simpler, threshold-based product procured via tender. <strong>Dynamic Containment:</strong> responds within one second, is proportional to the frequency deviation, and is a post-fault service designed for faster, finer grid stabilisation. DC has largely replaced FFR as the primary fast frequency response product in GB, as it's better suited to a grid with high renewable penetration where frequency events are faster and less predictable."
+          </div>
+          <div class="callout callout-tech">
+            <strong>Note:</strong> NESO also procures Dynamic Regulation (DR) and Dynamic Moderation (DM) for continuous, pre-fault frequency management. DR is the most commonly stacked service alongside DC for batteries.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">M05</span>
+          <span class="qa-question">What is a Physical Notification (PN) and why does it matter operationally?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "A Physical Notification is the declared import/export profile that a Balancing Mechanism Unit submits to NESO, specifying in MW what the unit plans to do in each settlement period. They must be submitted and updated within a gate closure window. <strong>Operationally, PNs are critical</strong> because they form the baseline against which NESO measures deviations. If an asset operates significantly differently from its PN without a corresponding BOA, it incurs Imbalance Settlement charges — which can be very expensive. The Scheduling Analyst role involves ensuring PNs reflect trader intentions accurately and are updated promptly when plans change."
+          </div>
+          <div class="callout callout-tech">
+            <strong>Elexon note:</strong> PNs are submitted via Elexon's BMRS/EDL systems. Gate closure in GB is currently one hour before delivery — after which changes to PNs are more restricted.
+          </div>
+          <div class="pdf-refs">
+            <div class="pdf-ref-label">Revise in source documents</div>
+            <a class="pdf-tag" href="https://watt-logic.com/wp-content/uploads/2019/06/Beginners-Guide-to-the-GB-Electricity-Market.pdf" target="_blank"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 1h6l4 4v10H4V1zm6 0v4h4M6 9h4M6 12h4M6 6h2"/></svg>Elexon Beginner's Guide — pp. 8–11 (Physical Notifications, Submission Deadline)</a>
+            <a class="pdf-tag" href="https://www.neso.energy/document/288246/download" target="_blank"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 1h6l4 4v10H4V1zm6 0v4h4M6 9h4M6 12h4M6 6h2"/></svg>NESO FAQ — "Final Physical Notification (FPN)" (p. 5)</a>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">M06</span>
+          <span class="qa-question">How does state of charge (SoC) affect a battery's ability to participate in ancillary services?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "State of charge is a fundamental operational constraint. For frequency services, the asset needs to be able to respond in both directions — charging if frequency is high, discharging if frequency is low. This means the SoC needs to be held within a range that allows headroom in both directions: <strong>too high and you can't absorb more energy (DC High fails); too low and you can't discharge (DC Low fails).</strong> For most ancillary services, operators target a mid-SoC band — often 40–60% depending on the duration and terms of the service. SoC management is therefore a continuous operational task, and unexpected drift (due to a market event or asset issue) needs to be corrected promptly."
+          </div>
+          <div class="callout callout-tech">
+            <strong>Operational implication:</strong> Monitoring SoC is one of the most concrete live operations tasks you'd perform — it directly affects revenue capability and contract compliance.
+          </div>
+          <div class="pdf-refs">
+            <div class="pdf-ref-label">Revise in source documents</div>
+            <a class="pdf-tag" href="https://www.caiso.com/documents/2024-special-report-on-battery-storage-may-29-2025.pdf" target="_blank"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 1h6l4 4v10H4V1zm6 0v4h4M6 9h4M6 12h4M6 6h2"/></svg>CAISO 2024 Battery Report — §2.1 (SoC constraints, ancillary service state-of-charge constraints)</a>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">M07</span>
+          <span class="qa-question">What factors determine whether a battery should prioritise wholesale arbitrage vs ancillary services on a given day?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "It comes down to a comparison of expected revenues from each pathway, adjusted for risk and constraints. For <strong>wholesale arbitrage</strong>, the key input is the day-ahead price spread — the difference between peak and off-peak prices. Wide spreads (often driven by high renewable output at midday depressing prices) make arbitrage attractive. For <strong>ancillary services</strong>, the clearing prices from NESO tenders are known in advance, offering predictable availability payments. A battery optimiser like Habitat would weigh the risk-adjusted return of each: ancillary services offer certainty but limit flexibility, while arbitrage is more volatile but can be very lucrative during high-spread periods. Degradation costs also factor in — ancillary services often impose fewer charge/discharge cycles than arbitrage."
+          </div>
+          <div class="callout callout-tip">
+            <strong>This is a trader-level question.</strong> At this stage of your career, demonstrating you understand the trade-off logic is sufficient — you don't need to have built the optimisation model yourself.
+          </div>
+          <div class="pdf-refs">
+            <div class="pdf-ref-label">Revise in source documents</div>
+            <a class="pdf-tag" href="https://www.caiso.com/documents/2024-special-report-on-battery-storage-may-29-2025.pdf" target="_blank"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 1h6l4 4v10H4V1zm6 0v4h4M6 9h4M6 12h4M6 6h2"/></svg>CAISO 2024 Battery Report — §2.4–2.5 (Energy bids, arbitrage patterns, ancillary service share)</a>
+            <a class="pdf-tag" href="https://documents1.worldbank.org/curated/en/099536501202316060/pdf/IDU0edcfc32c0825f040f509c0b0bbf49294e569.pdf" target="_blank"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 1h6l4 4v10H4V1zm6 0v4h4M6 9h4M6 12h4M6 6h2"/></svg>World Bank BESS Guidelines — §3.3, Fig. 9 (Revenue models: bulk energy shifting vs ancillary)</a>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">M08</span>
+          <span class="qa-question">What is the role of NESO and how does it interact with market participants like Habitat Energy?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "NESO — the National Energy System Operator, formerly National Grid ESO — is the independent body responsible for operating the GB electricity transmission system in real time. Its core job is to keep the grid balanced at 50 Hz at all times. It interacts with market participants like Habitat in several ways: <strong>procuring ancillary services</strong> (Dynamic Containment, DR, FFR etc.) via tenders in advance; <strong>accepting bids and offers in the Balancing Mechanism</strong> during gate closure; and issuing dispatch instructions (BOAs) when it needs an asset to deviate from its PN. Habitat, as an asset operator on behalf of clients, acts as the interface between NESO and the physical battery — ensuring the asset responds correctly to NESO instructions."
+          </div>
+          <div class="callout callout-tech">
+            <strong>Recent change:</strong> NESO was formally separated from National Grid in October 2024, becoming an independent, government-owned body. Worth mentioning to show current awareness.
+          </div>
+          <div class="pdf-refs">
+            <div class="pdf-ref-label">Revise in source documents</div>
+            <a class="pdf-tag" href="https://www.neso.energy/document/288246/download" target="_blank"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 1h6l4 4v10H4V1zm6 0v4h4M6 9h4M6 12h4M6 6h2"/></svg>NESO FAQ — "Why does the ESO need a BM?" + "Who gets paid for Balancing?" (pp. 3–4)</a>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="cat-divider"><span class="cat-label">New — PDF-Grounded Technical Questions</span><div class="cat-line"></div></div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">M09</span>
+          <span class="qa-question">What is a Bid-Offer Acceptance (BOA) and what happens operationally when one is issued?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "A Bid-Offer Acceptance is an instruction from NESO to a Balancing Mechanism participant to deviate from their Physical Notification. When NESO accepts a bid or offer, it issues a BOA specifying the volume and direction of the change required. <strong>Operationally, receiving a BOA means the asset must respond and adjust its output accordingly</strong> — for a battery, that means charging or discharging at the instructed MW level. Once the asset acts on the BOA, NESO calculates the deviation from the PN and settles accordingly. If we receive a BOA and the asset doesn't respond — due to a fault, communication issue, or SoC constraint — that non-delivery becomes an imbalance that needs immediate escalation and documentation."
+          </div>
+          <div class="callout callout-tech">
+            <strong>Direct ops relevance:</strong> Tracking BOA receipt and confirming asset response is a real-time task in this role. A missed BOA is one of the most commercially significant operational failures.
+          </div>
+          <div class="pdf-refs">
+            <div class="pdf-ref-label">Revise in source documents</div>
+            <a class="pdf-tag" href="https://www.neso.energy/document/288246/download" target="_blank"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 1h6l4 4v10H4V1zm6 0v4h4M6 9h4M6 12h4M6 6h2"/></svg>NESO FAQ — "Once we accept a bid or offer, we issue Bid Offer Acceptances (BOAs)" (p. 4)</a>
+            <a class="pdf-tag" href="https://watt-logic.com/wp-content/uploads/2019/06/Beginners-Guide-to-the-GB-Electricity-Market.pdf" target="_blank"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 1h6l4 4v10H4V1zm6 0v4h4M6 9h4M6 12h4M6 6h2"/></svg>Elexon Beginner's Guide — pp. 9–11 (Bid-Offer Acceptances, gate closure, settlement)</a>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">M10</span>
+          <span class="qa-question">What is imbalance settlement and why does it matter if a battery deviates from its PN without a BOA?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "Imbalance settlement is the process by which ELEXON calculates and prices the difference between what a BMU declared it would do (its PN) and what it actually did (its metered volume). If a battery charges or discharges outside its declared PN and without a corresponding BOA, that deviation is treated as an imbalance. <strong>The imbalance is priced at the System Buy Price or System Sell Price</strong> — which can be significantly worse than market rates, especially in stressed system conditions. This is why PN accuracy is commercially critical: the cost of an unexpected imbalance during a high-price period can be very large. As Scheduling Analyst, ensuring the PN reflects trader intentions and is updated promptly when plans change is one of the most important responsibilities."
+          </div>
+          <div class="callout callout-tech">
+            <strong>From the Elexon guide:</strong> Settlement is reconciled on four occasions over 14 months, with increasingly accurate metered data. Errors found late are still financially corrected.
+          </div>
+          <div class="pdf-refs">
+            <div class="pdf-ref-label">Revise in source documents</div>
+            <a class="pdf-tag" href="https://watt-logic.com/wp-content/uploads/2019/06/Beginners-Guide-to-the-GB-Electricity-Market.pdf" target="_blank"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 1h6l4 4v10H4V1zm6 0v4h4M6 9h4M6 12h4M6 6h2"/></svg>Elexon Beginner's Guide — pp. 2–3, 12–17 (Imbalance Settlement, SBP/SSP, reconciliation)</a>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">M11</span>
+          <span class="qa-question">What are the main BESS revenue streams and how do they differ commercially?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "There are three main categories. <strong>Bulk energy shifting (arbitrage):</strong> buying cheap and selling expensive — revenue depends entirely on price spreads and carries market risk. <strong>Network and system services (ancillary services):</strong> contracted availability payments from NESO (e.g. Dynamic Containment, STOR) — predictable, lower-risk income that doesn't require active dispatch most of the time. <strong>Capacity Market:</strong> annual payments for holding capacity available to dispatch during system stress. These three can be stacked, but they create competing constraints — committing capacity to a service limits how it can be used elsewhere. The World Bank BESS guidelines categorise projects by primary use case because the commercial structure of each is fundamentally different: energy shifting deals are price-risk driven, service contracts are performance-obligation driven."
+          </div>
+          <div class="callout callout-tech">
+            <strong>Interview tip:</strong> The World Bank framework of three project types — bulk shifting, network services, hybrid — maps directly to how Habitat structures its optimisation decisions.
+          </div>
+          <div class="pdf-refs">
+            <div class="pdf-ref-label">Revise in source documents</div>
+            <a class="pdf-tag" href="https://documents1.worldbank.org/curated/en/099536501202316060/pdf/IDU0edcfc32c0825f040f509c0b0bbf49294e569.pdf" target="_blank"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 1h6l4 4v10H4V1zm6 0v4h4M6 9h4M6 12h4M6 6h2"/></svg>World Bank BESS Guidelines — §3.3, Tables 7–8, Fig. 9 (Revenue models by use case)</a>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">M12</span>
+          <span class="qa-question">How do batteries participate in frequency regulation and what operational constraints does this create?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "Batteries providing frequency regulation respond automatically to deviations from 50 Hz — discharging when frequency drops (under-frequency), charging when it rises (over-frequency). In CAISO and similar markets this is called regulation up/down; in GB it's Dynamic Containment or Dynamic Regulation. The key operational constraint is that the battery must maintain sufficient SoC headroom in both directions at all times during the service window. <strong>The CAISO 2024 report found batteries provided 84% of regulation up and down requirements</strong> — demonstrating how dominant storage has become in frequency markets. From an operations perspective, when a battery is providing regulation it cannot be freely dispatched for arbitrage, so the scheduler must actively track which assets are committed to which services at any given time."
+          </div>
+          <div class="callout callout-tech">
+            <strong>Key figure to cite:</strong> CAISO data shows batteries provided 84% of frequency regulation in 2024 — strong evidence for why BESS and regulation services are inseparable.
+          </div>
+          <div class="pdf-refs">
+            <div class="pdf-ref-label">Revise in source documents</div>
+            <a class="pdf-tag" href="https://www.caiso.com/documents/2024-special-report-on-battery-storage-may-29-2025.pdf" target="_blank"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 1h6l4 4v10H4V1zm6 0v4h4M6 9h4M6 12h4M6 6h2"/></svg>CAISO 2024 Battery Report — §1.2 Key Findings + §2.1 (regulation, SoC constraints, ASSOC)</a>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">M13</span>
+          <span class="qa-question">What is BSUoS and who ultimately pays for the cost of balancing?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "BSUoS — Balancing Services Use of System — is the charge that recovers the costs of operating the Balancing Mechanism. It's levied on generators and suppliers in proportion to their market share of generation and consumption in each settlement period. Generators recover it through their revenue streams; suppliers pass it through to consumers. <strong>Balancing costs contribute less than 5% of a household's electricity bill</strong>, but in aggregate they represent billions of pounds annually — and have increased significantly since 2018 due to gas price volatility and grid constraint costs. For a battery operator like Habitat, understanding BSUoS matters because it affects the competitive dynamics of the BM: if balancing costs are high, the spreads available from BOA revenue are larger."
+          </div>
+          <div class="callout callout-tech">
+            <strong>Contextual awareness:</strong> NESO has forecast constraint costs alone could reach £3 billion/year by 2028. This is the commercial environment Habitat's assets operate in.
+          </div>
+          <div class="pdf-refs">
+            <div class="pdf-ref-label">Revise in source documents</div>
+            <a class="pdf-tag" href="https://www.neso.energy/document/288246/download" target="_blank"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 1h6l4 4v10H4V1zm6 0v4h4M6 9h4M6 12h4M6 6h2"/></svg>NESO FAQ — "Who pays for Balancing Costs?" + "How is my energy bill impacted?" (pp. 3–4)</a>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">M14</span>
+          <span class="qa-question">What is a Settlement Period and why does the half-hourly structure matter for battery dispatch?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "In GB, electricity trading and settlement is structured around 48 half-hour Settlement Periods per day — SP1 covers 00:00–00:30, through to SP48 (23:30–00:00). All contracted volumes, Physical Notifications, and metered deviations are calculated per settlement period. For battery dispatch, this half-hourly structure sets the minimum granularity at which positions need to be managed. <strong>A battery's PN must specify its planned MW output for each half-hour window</strong>. If the asset does something materially different within that window without a BOA, it creates an imbalance for that settlement period. This is why real-time monitoring needs to be continuous — an anomaly early in a settlement period needs to be caught and addressed before the end of that half-hour window to minimise imbalance exposure."
+          </div>
+          <div class="pdf-refs">
+            <div class="pdf-ref-label">Revise in source documents</div>
+            <a class="pdf-tag" href="https://watt-logic.com/wp-content/uploads/2019/06/Beginners-Guide-to-the-GB-Electricity-Market.pdf" target="_blank"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 1h6l4 4v10H4V1zm6 0v4h4M6 9h4M6 12h4M6 6h2"/></svg>Elexon Beginner's Guide — p. 8 (Settlement Periods defined: SP1–SP48, half-hourly structure)</a>
+          </div>
+        </div></div>
+      </div>
+
+    </div><!-- /technical-markets -->
+
+    <!-- TECHNICAL: OPS -->
+    <div class="page" id="page-technical-ops">
+      <div class="page-header">
+        <div class="page-label">Category 3 of 5</div>
+        <div class="page-title">Live Operations — Technical</div>
+        <div class="page-desc">Scenario-based questions about monitoring, fault response, escalation, and shift handover. These are the day-to-day realities of the role.</div>
+      </div>
+
+      <div class="cat-divider"><span class="cat-label">Monitoring &amp; Fault Response</span><div class="cat-line"></div></div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">O01</span>
+          <span class="qa-question">Walk me through how you would monitor a live battery asset and detect anomalies.</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "I'd start each monitoring window by establishing the expected operating state: what market the asset is committed to, its scheduled dispatch profile, and its current SoC. From there, I'd watch for deviations across three dimensions: <strong>commercial</strong> (is the asset following its nominated position?), <strong>technical</strong> (is the telemetry behaving consistently — power output, SoC, temperature, inverter status?), and <strong>market</strong> (have any NESO instructions been issued that we haven't responded to?). An anomaly might be a BOA we haven't executed, an SoC drifting outside the expected range, or a communication gap in the telemetry feed. Each anomaly has a different response path — some I'd try to resolve directly, others I'd escalate immediately per the issue policy."
+          </div>
+          <div class="callout callout-tip">
+            <strong>Interview framing:</strong> Even without direct BESS experience, showing a structured, three-dimensional approach to monitoring demonstrates operational maturity that interviewers recognise.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">O02</span>
+          <span class="qa-question">An asset is not responding to a dispatch instruction. What do you do?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "First, I'd confirm the instruction was actually sent correctly and the timing was within the expected response window — rule out a system or comms issue on our side. Then I'd check the asset's telemetry: is it receiving the command? Is there a fault flag? Is the SoC at a constraint limit that would prevent the response? <strong>If I can't identify and resolve the issue within a short window, I escalate immediately</strong> — both to the technical team (asset fault) and to the trader (commercial implication). I'd document the timeline as I go: when the instruction was issued, when non-response was detected, what I checked, and what was escalated and to whom. NESO may also need to be notified if the asset is committed to a service and cannot deliver."
+          </div>
+          <div class="callout callout-tech">
+            <strong>Key principle:</strong> In live operations, doing nothing while waiting for more information is itself a decision — and often the wrong one. Act, escalate, and document in parallel.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">O03</span>
+          <span class="qa-question">How would you write an incident report after an asset failure?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "I'd structure it around five components: <strong>(1) Timeline</strong> — when was the issue first detected, by what means, and by whom; <strong>(2) Nature of the fault</strong> — what exactly failed and what symptoms were observed; <strong>(3) Commercial and operational impact</strong> — what dispatch was missed, what revenue was affected, were any contract obligations breached; <strong>(4) Actions taken</strong> — what was done in real time to mitigate, including escalations and their timestamps; <strong>(5) Root cause and follow-up</strong> — what caused the failure, any tech tickets raised, any process changes recommended. The writing should be factual and specific — no assumptions, no vague timings. The test is: could someone reading this six months later reconstruct exactly what happened?"
+          </div>
+          <div class="callout callout-tip">
+            <strong>Why they ask this:</strong> Incident reporting is explicitly in the JD. A structured answer here signals both operational competence and communication maturity.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">O04</span>
+          <span class="qa-question">What would you check first if an asset's state of charge was reading unexpectedly high or low?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "My first step is to determine whether the unexpected reading is real or a data artefact. I'd <strong>cross-reference multiple data sources</strong>: does the SCADA reading match the BMS output? Does the cumulative net energy flow since last known SoC align with the current reading? If there's a discrepancy between data sources, it's likely a sensor or communication issue rather than the asset actually being in that state. If the readings are consistent and the SoC is genuinely off, I'd look at what dispatch has occurred — was there an unplanned activation, an unauthorised instruction, or a fault that caused unexpected charging or discharging? I'd then assess whether the SoC deviation puts us at risk of breaching a service contract obligation and escalate if so."
+          </div>
+          <div class="callout callout-tech">
+            <strong>Key insight:</strong> Always distinguish between a data problem and a real operational problem first — the response path is very different.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">O05</span>
+          <span class="qa-question">How do you ensure a clean handover at the end of your shift?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "A clean handover has three parts. <strong>Status summary:</strong> what is each asset currently doing, what market is it in, and what is its current SoC? <strong>Open items:</strong> any issues that are unresolved, ongoing investigations, or pending escalations — with full context so the incoming operator doesn't start from scratch. <strong>Upcoming flags:</strong> any known events in the next few hours that the incoming shift should be aware of — NESO tenders, asset outage windows, maintenance schedules. I'd deliver this verbally in a structured handover call and leave a written log. The outgoing operator is responsible until the incoming one confirms they've received and understood the handover — not just when the clock says the shift ends."
+          </div>
+          <div class="callout callout-tip">
+            <strong>Why it matters:</strong> Poor handovers are a leading cause of operational incidents in 24/7 environments. Showing you understand this is a mark of operational maturity.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">O06</span>
+          <span class="qa-question">What's the difference between a curtailment event and an asset fault? How would you distinguish them?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "<strong>Curtailment</strong> is an instructed reduction in output — from NESO, the grid operator, or potentially from a constraint management instruction. The asset is operating correctly but has been told to reduce or stop. <strong>A fault</strong> is an unplanned deviation from expected operation due to a technical problem — hardware failure, inverter trip, communication loss, etc. To distinguish them: curtailment will typically appear as an instruction in the market systems (a BOA or constraint notice), and the asset's telemetry will show it responding to that instruction. A fault will show fault flags in the BMS or SCADA, and the deviation won't correspond to any instruction. Misidentifying one for the other can lead to the wrong response — escalating to NESO for a 'curtailment' that's actually a fault, or vice versa."
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">O07</span>
+          <span class="qa-question">How would you manage warranty condition tracking for a portfolio of battery assets?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "Battery warranties typically include conditions around cycle count, depth of discharge, temperature operating ranges, and sometimes minimum SoC thresholds. I'd manage this with a <strong>live tracking spreadsheet or database</strong> that records: the warranty conditions per asset, current cumulative metrics (cycles used, average DoD), projected run-rate versus warranty limits, and a flagging system for assets approaching boundaries. Any planned dispatch that would put an asset near a warranty limit should be flagged to the trading team before execution. I'd also ensure that any warranty-relevant events — like an overheat or deep discharge — are captured in the incident log immediately, even if resolved quickly, because they may be needed for a future warranty claim."
+          </div>
+          <div class="callout callout-tip">
+            <strong>Direct JD link:</strong> "Ensure asset warranty conditions are tracked and managed effectively" is listed verbatim as a responsibility. They may ask this specifically.
+          </div>
+        </div></div>
+      </div>
+
+    </div><!-- /technical-ops -->
+
+    <!-- TECHNICAL: DATA -->
+    <div class="page" id="page-technical-data">
+      <div class="page-header">
+        <div class="page-label">Category 4 of 5</div>
+        <div class="page-title">Data &amp; Excel — Technical</div>
+        <div class="page-desc">Excel is a hard requirement and Glassdoor reports confirm a proficiency test is likely. These questions assess your analytical thinking and reporting capability.</div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">D01</span>
+          <span class="qa-question">Walk me through how you would use Excel in this role day-to-day.</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "I'd use Excel across several tasks in this role. For <strong>performance tracking</strong>, I'd build and maintain workbooks that compare actual asset dispatch vs. scheduled dispatch across settlement periods — using XLOOKUP or VLOOKUP to reconcile data from trading systems, pivot tables to summarise by asset and period, and conditional formatting to flag exceptions automatically. For <strong>reporting</strong>, I'd structure templates so that new data can be dropped in with minimal reformatting — Power Query connections where possible. For <strong>ad hoc analysis</strong> — investigating an incident or a revenue discrepancy — I'm comfortable with time-series analysis, charting deviations, and building formulae to calculate things like missed revenue from non-delivery. I know Excel well enough that it doesn't slow me down."
+          </div>
+          <div class="callout callout-tip">
+            <strong>Expect a test:</strong> Based on Glassdoor reports, Habitat includes an Excel proficiency assessment. Be ready to demonstrate pivot tables, XLOOKUP, and data cleaning under time pressure.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">D02</span>
+          <span class="qa-question">How would you build a performance monitoring report for a portfolio of battery assets?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "I'd start by defining the key metrics: availability (% of time each asset was operational and in-market), dispatch accuracy (actual vs. scheduled output in MWh), revenue captured vs. optimisation target, and any contract compliance metrics. I'd structure the workbook with a <strong>raw data tab, a calculations tab, and a summary dashboard</strong>. The dashboard would show at-a-glance status for each asset — RAG status against targets — with drilldown capability into the detail. I'd include trend charts over rolling periods (7-day, 30-day) so that degradation or recurring issues are visible over time, not just in the most recent period. Any cell that feeds a headline metric would be clearly labelled and auditable."
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">D03</span>
+          <span class="qa-question">Describe how you've used data analysis to support a decision or identify a problem.</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "In a previous role, we noticed that a particular process was running consistently slower than target on certain days of the week. Rather than accepting this as random variation, I pulled the full dataset and filtered by day, operator, and input type. I found that the slowdowns clustered on Mondays and correlated with a specific upstream data feed that was being refreshed over the weekend. <strong>The root cause wasn't operational — it was a data pipeline latency issue</strong> that no one had thought to check. I presented the finding with charts showing the correlation and proposed a simple fix. The analysis took a few hours but saved the team recurring confusion. The lesson I took is: when something is consistently off, data usually tells you why — you just have to ask the right question of it."
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">D04</span>
+          <span class="qa-question">If you received a dataset of half-hourly actual dispatch vs. scheduled dispatch for a battery asset, how would you analyse it?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "I'd start by loading the data and checking for completeness — any missing periods, obvious outliers, or formatting issues. Then I'd calculate the <strong>deviation per settlement period</strong> (actual minus scheduled) and look at the distribution: are deviations random, or do they cluster at certain times of day, certain markets, or certain asset states? I'd calculate cumulative deviation over the period to understand the total magnitude. I'd flag periods where deviation exceeded a threshold (say ±5% or an absolute MW level) and investigate those specifically. If there's a pattern — e.g. consistent under-delivery in the morning peak — that points to a systematic issue (SoC management, dispatch logic, or comms lag) rather than noise. I'd present findings in a chart showing scheduled vs. actual over time, with deviation annotated."
+          </div>
+          <div class="callout callout-tech">
+            <strong>This is essentially the job.</strong> Reconciling scheduled vs. actual dispatch is a core daily task. A strong answer here is a direct signal of operational readiness.
+          </div>
+        </div></div>
+      </div>
+
+    </div><!-- /technical-data -->
+
+    <!-- MOTIVATION -->
+    <div class="page" id="page-motivation">
+      <div class="page-header">
+        <div class="page-label">Category 5 of 5</div>
+        <div class="page-title">Motivation &amp; Fit</div>
+        <div class="page-desc">Questions about your reasons for applying and your long-term direction. Generic answers here will cost you — be specific about Habitat's model and what makes this role commercially interesting.</div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">F01</span>
+          <span class="qa-question">Why energy storage specifically? Why not a more traditional energy or operations role?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "Battery storage sits at the intersection of two things I find genuinely interesting: real-time operational complexity and commercial optimisation. A traditional generation or grid operations role might be procedurally rigorous, but the asset behaviour is relatively predictable. Storage is different — the optimal strategy changes by the hour based on price signals, frequency conditions, and SoC constraints. <strong>The role is intellectually active, not just procedurally correct.</strong> I also think this is where the most interesting energy infrastructure growth is happening right now — the GB storage market is expanding rapidly and the operational and market frameworks are still maturing. Getting deep expertise in this area now feels like a high-value career investment."
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">F02</span>
+          <span class="qa-question">Why Habitat Energy specifically? What do you know about how we differentiate ourselves?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "Habitat is not an asset owner — it's a technology and optimisation company that operates on behalf of clients. That distinction matters: the commercial model is built around algorithmic and machine-learning approaches to maximising returns across stacked revenue streams, rather than just managing a fixed dispatch schedule. You've recently expanded significantly in ERCOT — the UBS 730 MW partnership and the Birch Creek solar-plus-storage deal — which shows the model is scaling beyond GB. <strong>That's a more interesting operating context than a traditional utility</strong>, and the team structure brings together trading, data science, and engineering in a way that would expose me to a broad set of skills, not just one function."
+          </div>
+          <div class="callout callout-tip">
+            <strong>Research matters here.</strong> The interviewers will be able to tell immediately whether you've read about the company or are giving a generic answer. Reference specific deals, markets, or the ML/algorithmic angle.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">F03</span>
+          <span class="qa-question">How do you feel about shift rotations including nights and weekends?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "I've thought about this carefully and I'm genuinely comfortable with it — it's part of what makes this role operationally meaningful. Energy assets don't stop generating or responding to market signals on Friday evenings, and the most commercially significant events (grid stress, price spikes) often happen outside standard hours. I'd approach the shift pattern the same way I'd approach any operational responsibility: with structure, a consistent pre-shift routine, and discipline around rest. <strong>I wouldn't apply for this role if the shift element were a dealbreaker for me</strong> — I'd rather have a role where the responsibility is real."
+          </div>
+        </div></div>
+      </div>
+
+      <div class="qa-card" onclick="toggle(this)">
+        <div class="qa-header">
+          <span class="qa-num">F04</span>
+          <span class="qa-question">Where do you see this role taking your career in 2–3 years?</span>
+          <span class="qa-chevron">&#8964;</span>
+        </div>
+        <div class="qa-body"><div class="qa-content">
+          <div class="answer-label">Model Answer</div>
+          <div class="answer-text">
+            "My immediate goal is to develop deep operational competence in live battery asset management and the GB market structure — to become genuinely reliable and effective in the core role. Over 2–3 years, I'd want to progress toward either a more senior scheduling or operations position, or potentially toward the trading side as I develop better intuition for market dynamics. I'm also interested in the data and analysis dimension — there's clearly a lot of value that can be unlocked from operational data, and I'd like to contribute to that over time. <strong>I'm not looking to move quickly for the sake of it — I want to build a foundation that's actually useful.</strong>"
+          </div>
+          <div class="callout callout-tip">
+            <strong>Avoid:</strong> Saying you want to be a trader within 12 months. That can come across as using this role as a stepping stone, which may concern the interviewer.
+          </div>
+        </div></div>
+      </div>
+
+    </div><!-- /motivation -->
+
+    <!-- RESOURCES -->
+    <div class="page" id="page-resources">
+      <div class="page-header">
+        <div class="page-label">Reading List</div>
+        <div class="page-title">PDF Resources</div>
+        <div class="page-desc">Four open-access documents that directly underpin the technical content in this guide. Each one is already open in your Chrome browser. Links open the PDF directly.</div>
+      </div>
+
+      <div class="cat-divider"><span class="cat-label">Document Overview</span><div class="cat-line"></div></div>
+
+      <div class="overview-section" style="margin-bottom:12px">
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+          <thead>
+            <tr style="border-bottom:2px solid var(--border)">
+              <th style="text-align:left;padding:8px 12px 8px 0;color:var(--text-secondary);font-weight:600;font-size:11px;letter-spacing:0.06em;text-transform:uppercase">Document</th>
+              <th style="text-align:left;padding:8px 12px;color:var(--text-secondary);font-weight:600;font-size:11px;letter-spacing:0.06em;text-transform:uppercase">Publisher</th>
+              <th style="text-align:left;padding:8px 0;color:var(--text-secondary);font-weight:600;font-size:11px;letter-spacing:0.06em;text-transform:uppercase">Questions covered</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:10px 12px 10px 0;vertical-align:top"><a href="https://watt-logic.com/wp-content/uploads/2019/06/Beginners-Guide-to-the-GB-Electricity-Market.pdf" target="_blank" style="color:var(--blue);font-weight:500;text-decoration:none">Elexon — Electricity Trading Arrangements: A Beginner's Guide</a><div style="font-size:11px;color:var(--text-light);margin-top:2px">22 pages · Feb 2019</div></td>
+              <td style="padding:10px 12px;vertical-align:top;color:var(--text-secondary)">Elexon (BSC operator)</td>
+              <td style="padding:10px 0;vertical-align:top;color:var(--text-secondary)">M02, M05, M09, M10, M14 — Balancing Mechanism, PNs, BOAs, Settlement Periods, imbalance settlement</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:10px 12px 10px 0;vertical-align:top"><a href="https://www.neso.energy/document/288246/download" target="_blank" style="color:var(--blue);font-weight:500;text-decoration:none">NESO — Balancing Costs Frequently Asked Questions (Q3 2023)</a><div style="font-size:11px;color:var(--text-light);margin-top:2px">6 pages · 2023</div></td>
+              <td style="padding:10px 12px;vertical-align:top;color:var(--text-secondary)">National Energy System Operator</td>
+              <td style="padding:10px 0;vertical-align:top;color:var(--text-secondary)">M08, M09, M13 — NESO's role, BOAs, BSUoS, Dynamic Containment introduction</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:10px 12px 10px 0;vertical-align:top"><a href="https://www.caiso.com/documents/2024-special-report-on-battery-storage-may-29-2025.pdf" target="_blank" style="color:var(--blue);font-weight:500;text-decoration:none">CAISO — 2024 Special Report on Battery Storage</a><div style="font-size:11px;color:var(--text-light);margin-top:2px">~60 pages · May 2025</div></td>
+              <td style="padding:10px 12px;vertical-align:top;color:var(--text-secondary)">California ISO</td>
+              <td style="padding:10px 0;vertical-align:top;color:var(--text-secondary)">M06, M07, M12, M01 — SoC constraints, arbitrage vs ancillary, regulation participation (84% of freq. regulation), revenue breakdown</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 12px 10px 0;vertical-align:top"><a href="https://documents1.worldbank.org/curated/en/099536501202316060/pdf/IDU0edcfc32c0825f040f509c0b0bbf49294e569.pdf" target="_blank" style="color:var(--blue);font-weight:500;text-decoration:none">World Bank — Guidelines for BESS under PPP Structures</a><div style="font-size:11px;color:var(--text-light);margin-top:2px">~100 pages · Jan 2023</div></td>
+              <td style="padding:10px 12px;vertical-align:top;color:var(--text-secondary)">World Bank Group</td>
+              <td style="padding:10px 0;vertical-align:top;color:var(--text-secondary)">M01, M07, M11 — Revenue models (bulk shifting, ancillary, hybrid), use case framework, UK/Ireland capacity auction data</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="cat-divider"><span class="cat-label">What Each Document Covers</span><div class="cat-line"></div></div>
+
+      <div class="overview-section">
+        <h3>1 · Elexon Beginner's Guide — Start here for GB market mechanics</h3>
+        <p>Published by Elexon, the body that operates the Balancing and Settlement Code. This is the most directly relevant document to your day-to-day role. It explains how electricity is traded in half-hour Settlement Periods, what Bids and Offers are, how the Balancing Mechanism works, what Physical Notifications are and why gate closure matters, and how imbalance settlement works when a participant deviates from their PN. Questions M02, M05, M09, M10, and M14 are all directly grounded in this document. Read sections 1–3 (pages 1–17).</p>
+        <div style="margin-top:10px"><a href="https://watt-logic.com/wp-content/uploads/2019/06/Beginners-Guide-to-the-GB-Electricity-Market.pdf" target="_blank" class="pdf-tag" style="display:inline-flex"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 1h6l4 4v10H4V1zm6 0v4h4M6 9h4M6 12h4M6 6h2"/></svg>Open PDF</a></div>
+      </div>
+
+      <div class="overview-section">
+        <h3>2 · NESO Balancing Costs FAQ — For NESO's role and BOA mechanics</h3>
+        <p>A concise official FAQ from the National Energy System Operator explaining what the Balancing Mechanism is, why it exists, how BOAs work, who pays for balancing costs (BSUoS), and what NESO is doing to reduce them. It also introduces Dynamic Containment as one of NESO's fast-acting frequency products. Directly relevant to M08, M09, and M13. Six pages — read it in full.</p>
+        <div style="margin-top:10px"><a href="https://www.neso.energy/document/288246/download" target="_blank" class="pdf-tag" style="display:inline-flex"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 1h6l4 4v10H4V1zm6 0v4h4M6 9h4M6 12h4M6 6h2"/></svg>Open PDF</a></div>
+      </div>
+
+      <div class="overview-section">
+        <h3>3 · CAISO 2024 Battery Storage Report — For real market data on BESS</h3>
+        <p>The California ISO's annual analysis of how batteries actually participate in energy markets. Includes data on state-of-charge constraints and ancillary service constraints (ASSOC), how batteries bid into day-ahead and real-time markets, the arbitrage pattern (charge midday when solar depresses prices, discharge peak evening), frequency regulation participation (batteries provided 84% of regulation in 2024), and revenue breakdown by stream. CAISO is a different market from GB but the principles of battery economics are directly comparable. Relevant to M06, M07, M12, M01. Read Sections 1–2.5.</p>
+        <div style="margin-top:10px"><a href="https://www.caiso.com/documents/2024-special-report-on-battery-storage-may-29-2025.pdf" target="_blank" class="pdf-tag" style="display:inline-flex"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 1h6l4 4v10H4V1zm6 0v4h4M6 9h4M6 12h4M6 6h2"/></svg>Open PDF</a></div>
+      </div>
+
+      <div class="overview-section">
+        <h3>4 · World Bank BESS Guidelines — For revenue model framework</h3>
+        <p>A World Bank guidance document on implementing BESS projects in developing markets. The first third is highly relevant regardless of geography — it categorises BESS use cases into bulk energy shifting, network/ancillary services, and hybrid, and includes Figure 9 (a clear schematic of revenue models) and Tables 7–8 (technical and economic inputs by project type). The UK/Ireland capacity auction de-rating data in Table 9 is also directly relevant to GB market context. Read the Executive Summary and Sections 1–3.3.</p>
+        <div style="margin-top:10px"><a href="https://documents1.worldbank.org/curated/en/099536501202316060/pdf/IDU0edcfc32c0825f040f509c0b0bbf49294e569.pdf" target="_blank" class="pdf-tag" style="display:inline-flex"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1"><path d="M4 1h6l4 4v10H4V1zm6 0v4h4M6 9h4M6 12h4M6 6h2"/></svg>Open PDF</a></div>
+      </div>
+
+    </div><!-- /resources -->
+
+    <!-- SOURCES -->
+    <div class="page" id="page-sources">
+      <div class="page-header">
+        <div class="page-label">References</div>
+        <div class="page-title">Sources &amp; Methodology</div>
+        <div class="page-desc">Where the questions, answers, and technical content in this guide came from.</div>
+      </div>
+
+      <div class="cat-divider"><span class="cat-label">Question Sources</span><div class="cat-line"></div></div>
+
+      <div class="overview-section">
+        <h3>1. Habitat Energy Job Description</h3>
+        <p>The primary source for role responsibilities, required competencies, and "must have" skills. All questions directly reference duties listed in the JD, including: live asset monitoring, shift rota coverage, trade nomination and confirmation checking, physical notification management, asset warranty tracking, incident reporting, and performance analysis. The JD was accessed via StudySmarter Talents and ZipRecruiter listings for the Oxford-based Scheduling &amp; Operations Analyst vacancy.</p>
+        <ul style="margin-top:8px">
+          <li>Source: <em>Scheduling &amp; Operations Analyst — Habitat Energy</em>, StudySmarter Talents (talents.studysmarter.co.uk)</li>
+          <li>Source: <em>Scheduling &amp; Operations Analyst — Habitat Energy</em>, ZipRecruiter UK listing</li>
+        </ul>
+      </div>
+
+      <div class="overview-section">
+        <h3>2. Glassdoor Interview Reports — Habitat Energy</h3>
+        <p>Former and current candidates who interviewed at Habitat Energy posted first-hand accounts of what was asked. This directly informed the technical market questions (FFR, Dynamic Containment, market modelling, power market structure) and confirmed the likelihood of an Excel proficiency test. The reports also confirmed the typical 3–4 round process: phone screen → technical/competency interview → in-person Oxford panel.</p>
+        <ul style="margin-top:8px">
+          <li>Source: <em>Habitat Energy Interview Questions (2025)</em>, Glassdoor.com — multiple anonymous reviewers, interviews from 2022–2024</li>
+          <li>Specific questions confirmed asked: power market structure, Firm Frequency Response, Dynamic Containment, trading strategies, factors determining battery asset operation</li>
+        </ul>
+      </div>
+
+      <div class="overview-section">
+        <h3>3. GB Frequency Response &amp; Ancillary Services</h3>
+        <p>Technical content on Dynamic Containment, FFR, Dynamic Regulation, and frequency response more broadly was sourced from specialist energy industry publications and grid operator documentation. This informed questions M03, M04, M06, and M07, as well as the answer content on response times (0.5s for DC, 30s for static FFR), the ±0.5 Hz threshold, and the evolution away from FFR toward dynamic services.</p>
+        <ul style="margin-top:8px">
+          <li>Source: <em>Frequency Response in GB</em>, Axle Energy (axle.energy/blog/frequency) — detailed breakdown of GB frequency services by response time, direction, and pre/post-fault classification</li>
+          <li>Source: <em>Grid Design, Frequency Regulation &amp; Ancillary Services</em>, Enspired Trading (enspired-trading.com) — European and GB market structure overview</li>
+          <li>Source: <em>Enhanced Frequency Response FAQs v5.0</em>, National Grid (nationalgrid.com) — official documentation on EFR, FFR, and STOR as Relevant Balancing Services</li>
+        </ul>
+      </div>
+
+      <div class="overview-section">
+        <h3>4. Balancing Mechanism &amp; Physical Notifications</h3>
+        <p>Content on the GB Balancing Mechanism, Physical Notifications, Bid-Offer Acceptances, and gate closure was sourced from energy market reference material. This directly informed questions M02 and M05, as well as the operational note on Elexon and imbalance settlement charges.</p>
+        <ul style="margin-top:8px">
+          <li>Source: <em>What is the Balancing Mechanism?</em>, KYOS Energy Analytics (kyos.com) — overview of the BM in GB and Ireland, including PN software context</li>
+          <li>Source: General knowledge of Elexon's BMRS system and gate closure timings (one hour before delivery)</li>
+        </ul>
+      </div>
+
+      <div class="overview-section">
+        <h3>5. Habitat Energy Company Intelligence</h3>
+        <p>Company background, recent deals, and market positioning were sourced from industry news and company databases. This informed the Overview page and motivation question answers (F02), including references to the UBS 730 MW ERCOT partnership and the Birch Creek solar-plus-storage deal.</p>
+        <ul style="margin-top:8px">
+          <li>Source: <em>Habitat Energy Chosen to Optimize 730 MW ERCOT Battery Storage Portfolio</em>, PV Magazine USA (pv-magazine-usa.com, May 2024)</li>
+          <li>Source: <em>Habitat Energy — Products, Competitors, Financials</em>, CB Insights (cbinsights.com) — company overview, founding year (2017), Quinbrook Infrastructure Partners ownership, ERCOT co-optimisation deals</li>
+          <li>Source: <em>Habitat Energy Careers</em>, habitat.energy/careers — team composition and culture signals</li>
+        </ul>
+      </div>
+
+      <div class="overview-section">
+        <h3>6. European Power Market Structure</h3>
+        <p>Content on FCR, aFRR, mFRR, and day-ahead/intraday market structures was used to provide broader European context where relevant, particularly for understanding how GB products relate to continental equivalents.</p>
+        <ul style="margin-top:8px">
+          <li>Source: <em>The European Power Market: FCR, aFRR, mFRR &amp; Wholesale</em>, Enspired Trading (enspired-trading.com)</li>
+        </ul>
+      </div>
+
+      <div class="overview-section">
+        <h3>7. Energy Analyst Interview Frameworks</h3>
+        <p>General interview question frameworks for energy analyst and operations roles were used to supplement and validate coverage of the question set, particularly for behavioural questions.</p>
+        <ul style="margin-top:8px">
+          <li>Source: <em>Top 20 Energy Analyst Interview Questions and Answers</em>, CVOwl (cvowl.com)</li>
+          <li>Source: <em>20 Most Common Energy Analyst Interview Questions</em>, InterviewPrep (interviewprep.org)</li>
+          <li>Source: <em>Pre-screening Interview Questions for Energy Storage Specialist</em>, Hirevire (hirevire.com)</li>
+        </ul>
+      </div>
+
+      <div class="overview-section">
+        <h3>Methodology Note</h3>
+        <p>All model answers are synthesised from the sources above combined with domain knowledge of GB electricity market operations. They are designed to be structurally correct and credible for a candidate at this career stage — they are frameworks to adapt with your own specific examples, not scripts to memorise verbatim. Technical content (frequency thresholds, gate closure timings, service names) reflects the GB market as of early 2025.</p>
+      </div>
+
+    </div><!-- /sources -->
+
+  </main>
+</div>
+
+<!-- Practice Q data -->
+<script>
+// ─── Session Score State ───────────────────────────────────────────────
+let sessionScores = []; // Array of {qKey, qShort, score}
+let timerInterval = null;
+let timerSeconds = 0;
+let timerRunning = false;
+const TARGET_SECS = 120; // 2-minute target for a good answer
+
+// ─── Question Data ─────────────────────────────────────────────────────
+const practiceQs = {
+  b1: { text: "Tell me about a time you managed multiple urgent tasks simultaneously.", short: "Multitasking", context: "Scheduling & Operations Analyst at Habitat Energy. The role involves monitoring live 24/7 battery storage assets, supporting traders, and escalating issues. Key requirements: multitasking, attention to detail, decisiveness, independent working on shift rotations." },
+  b2: { text: "Describe a time you caught an error others missed. What was the impact?", short: "Error detection", context: "A core duty is accurately nominating traded positions with counterparties and checking trade confirmations. Errors have direct commercial and legal consequences in live energy markets." },
+  b3: { text: "Tell me about a time you had to make a decision quickly with incomplete information.", short: "Quick decision", context: "The JD explicitly states candidates must be 'decisive and able to use own initiative in dealing with operational problems'. This competency is critical for out-of-hours asset events." },
+  b4: { text: "Describe a situation where you had to escalate an issue. How did you handle it?", short: "Escalation", context: "Escalation is a core skill in this role. The interviewer wants someone who escalates the right things, at the right time, with the right information." },
+  b5: { text: "Give an example of when you improved a process or introduced a more efficient way of working.", short: "Process improvement", context: "The role involves regular reporting and database updates. Process improvement — especially in Excel workflows — is highly valued." },
+  b6: { text: "Tell me about a time you worked a non-standard schedule or under sustained operational pressure.", short: "Shift/pressure", context: "The role includes shift rotations covering nights and weekends. Evidence of adaptability and strategies for managing non-standard hours is required." },
+  b7: { text: "Describe a time you had to communicate a complex technical issue to a non-technical stakeholder.", short: "Technical comms", context: "The role requires keeping clients and customers informed on asset conditions, bridging technical operations and commercial stakeholders." },
+  b8: { text: "Tell me about a time a task or project didn't go to plan. What did you do?", short: "Things went wrong", context: "Accountability, speed of response, and learning from mistakes are key competencies. The interviewer wants to see how you handle errors honestly." },
+  m1: { text: "Explain how a battery storage asset generates revenue across multiple markets.", short: "Revenue stacking", context: "Core market knowledge question. Habitat optimises across wholesale, ancillary services, and the Balancing Mechanism simultaneously. Candidate should understand the revenue stacking logic." },
+  m2: { text: "What is the Balancing Mechanism and how does a battery participate in it?", short: "Balancing Mechanism", context: "Directly relevant to the role — the Scheduling Analyst is responsible for Physical Notifications and ensuring correct execution of Bid-Offer Acceptances." },
+  m3: { text: "What is Dynamic Containment and why is it particularly valuable for battery storage?", short: "Dynamic Containment", context: "DC is one of the primary ancillary services Habitat's assets participate in. Glassdoor confirms this is asked directly. Candidate should know response time, structure, and commercial rationale." },
+  m4: { text: "What is the difference between Firm Frequency Response (FFR) and Dynamic Containment?", short: "FFR vs DC", context: "Technical market question confirmed asked at Habitat interviews. Demonstrates awareness of the evolution of GB frequency markets." },
+  m5: { text: "What is a Physical Notification (PN) and why does it matter operationally?", short: "Physical Notifications", context: "PNs are a direct operational responsibility. Incorrect or late PNs lead to imbalance charges. This is one of the most operationally specific questions the interviewer can ask." },
+  m6: { text: "How does state of charge (SoC) affect a battery's ability to participate in ancillary services?", short: "SoC & services", context: "SoC monitoring is a core live ops task. The candidate should understand the bidirectionality requirement and why mid-SoC bands are targeted for frequency services." },
+  m7: { text: "What factors determine whether a battery should prioritise wholesale arbitrage vs ancillary services on a given day?", short: "Arbitrage vs ancillary", context: "Trader-level optimisation question. Candidate should understand the trade-off logic between predictable availability payments vs. volatile arbitrage spreads, plus degradation considerations." },
+  m8: { text: "What is the role of NESO and how does it interact with market participants like Habitat Energy?", short: "NESO role", context: "NESO (formerly National Grid ESO) is the primary counterparty for ancillary services and BM participation. Candidate should know it became independent in October 2024." },
+  m9: { text: "What is a Bid-Offer Acceptance (BOA) and what happens operationally when one is issued?", short: "BOA mechanics", context: "BOAs are instructions from NESO to deviate from a Physical Notification. Directly relevant to the Scheduling Analyst role — receiving, tracking, and confirming asset response to BOAs is a core live ops task. Source: NESO FAQ p.4, Elexon Beginner's Guide pp.9-11." },
+  m10: { text: "What is imbalance settlement and why does it matter if a battery deviates from its PN without a BOA?", short: "Imbalance settlement", context: "Imbalance settlement is the process ELEXON uses to calculate and price deviations from PNs. Unexpected deviations cost money. Core to understanding why PN accuracy matters. Source: Elexon Beginner's Guide pp.2-3, 12-17." },
+  m11: { text: "What are the main BESS revenue streams and how do they differ commercially?", short: "BESS revenue streams", context: "Three streams: bulk energy shifting (arbitrage), ancillary/network services, Capacity Market. Each has different commercial risk profile. Source: World Bank BESS Guidelines §3.3, Fig.9." },
+  m12: { text: "How do batteries participate in frequency regulation and what operational constraints does this create?", short: "Frequency regulation", context: "Batteries provided 84% of CAISO's regulation in 2024. SoC constraints (ASSOC) must be maintained. Bidirectionality requirement. Source: CAISO 2024 Battery Report §1.2, §2.1." },
+  m13: { text: "What is BSUoS and who ultimately pays for the cost of balancing?", short: "BSUoS", context: "Balancing Services Use of System charge recovers BM costs from generators/suppliers. Contributes <5% of household bills. Source: NESO FAQ pp.3-4." },
+  m14: { text: "What is a Settlement Period and why does the half-hourly structure matter for battery dispatch?", short: "Settlement Periods", context: "48 half-hour Settlement Periods per day (SP1=00:00-00:30). All PNs and imbalances calculated per SP. Real-time monitoring must catch anomalies within each SP window. Source: Elexon Beginner's Guide p.8." },
+  o1: { text: "Walk me through how you would monitor a live battery asset and detect anomalies.", short: "Asset monitoring", context: "Core operational question. The interviewer wants a structured, multi-dimensional monitoring approach covering commercial, technical, and market dimensions." },
+  o2: { text: "An asset is not responding to a dispatch instruction. What do you do?", short: "Non-response fault", context: "Scenario-based operations question. Tests methodical fault diagnosis, appropriate escalation, and real-time documentation. Speed and structure of response are both evaluated." },
+  o3: { text: "How would you write an incident report after an asset failure?", short: "Incident report", context: "Incident reporting is explicitly listed in the JD. The interviewer is testing structured communication and operational documentation discipline." },
+  o4: { text: "What would you check first if an asset's state of charge was reading unexpectedly high or low?", short: "SoC anomaly", context: "Tests the ability to distinguish data artefacts from real operational issues — a critical diagnostic skill in live monitoring." },
+  o5: { text: "How do you ensure a clean handover at the end of your shift?", short: "Shift handover", context: "Shift handover quality is a leading factor in 24/7 operational reliability. The interviewer wants a structured, documented handover approach." },
+  o6: { text: "What's the difference between a curtailment event and an asset fault? How would you distinguish them?", short: "Curtailment vs fault", context: "Misidentifying curtailment for a fault (or vice versa) leads to inappropriate escalation or missed response. Tests operational diagnosis thinking." },
+  o7: { text: "How would you manage warranty condition tracking for a portfolio of battery assets?", short: "Warranty tracking", context: "Warranty condition tracking is listed verbatim in the JD as a responsibility. A specific, structured answer is expected." },
+  d1: { text: "Walk me through how you would use Excel in this role day-to-day.", short: "Excel usage", context: "Excel is a hard requirement. Glassdoor reports confirm a proficiency test. The candidate should name specific functions and use cases, not give a vague answer." },
+  d2: { text: "How would you build a performance monitoring report for a portfolio of battery assets?", short: "Performance report", context: "Tests reporting design thinking — metric selection, structure, usability. Directly relevant to the reporting and analysis responsibilities." },
+  d3: { text: "Describe how you've used data analysis to support a decision or identify a problem.", short: "Data analysis", context: "Demonstrates analytical thinking with a real example. The candidate should show they go beyond surface-level summaries to ask the right questions of data." },
+  d4: { text: "If you received a dataset of half-hourly actual vs. scheduled dispatch, how would you analyse it?", short: "Dispatch analysis", context: "Practical analytical question. Reconciling scheduled vs. actual dispatch is a core daily task. Tests both analytical process and knowledge of how deviations are commercially significant." },
+  f1: { text: "Why energy storage specifically? Why not a more traditional energy or operations role?", short: "Why storage?", context: "The interviewer wants genuine, specific motivation — not generic 'passion for renewables'. The candidate should articulate what makes storage commercially and intellectually interesting." },
+  f2: { text: "Why Habitat Energy specifically? What do you know about how we differentiate ourselves?", short: "Why Habitat?", context: "Habitat is a technology company, not a utility. The differentiation is algorithmic optimisation. Candidate should reference specific recent deals or market positions." },
+  f3: { text: "How do you feel about shift rotations including nights and weekends?", short: "Shift comfort", context: "Practical blocker question. The role explicitly involves shift patterns including nights and weekends. The interviewer needs a direct, considered answer." },
+  f4: { text: "Where do you see this role taking your career in 2–3 years?", short: "Career path", context: "Tests ambition and self-awareness. The candidate should show commitment to the role, interest in progression within operations or trading, and avoid positioning this as a short-term stepping stone." }
+};
+
+// ─── Navigation ────────────────────────────────────────────────────────
+function showPage(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  if (el) el.classList.add('active');
+  // sync mobile nav
+  document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
+  const mobileBtn = document.querySelector(`.mobile-nav-btn[data-page="${id}"]`);
+  if (mobileBtn) mobileBtn.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function mobileNav(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function toggle(card) {
+  card.classList.toggle('open');
+}
+
+// ─── Timer ─────────────────────────────────────────────────────────────
+function formatTime(s) {
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return `${m}:${sec.toString().padStart(2, '0')}`;
+}
+
+function updateTimerDisplay() {
+  document.getElementById('timerValue').textContent = formatTime(timerSeconds);
+  const pct = Math.min((timerSeconds / TARGET_SECS) * 100, 100);
+  const fill = document.getElementById('timerBarFill');
+  fill.style.width = pct + '%';
+  // Colour: green → amber → red
+  if (pct < 50) fill.style.background = 'var(--accent)';
+  else if (pct < 85) fill.style.background = 'var(--amber)';
+  else fill.style.background = 'var(--red)';
+
+  const lbl = document.getElementById('timerValue');
+  if (timerSeconds > TARGET_SECS) lbl.style.color = 'var(--red)';
+  else if (timerSeconds > TARGET_SECS * 0.75) lbl.style.color = 'var(--amber)';
+  else lbl.style.color = 'var(--text-secondary)';
+}
+
+function toggleTimer() {
+  const btn = document.getElementById('timerBtn');
+  if (!timerRunning) {
+    timerRunning = true;
+    btn.textContent = 'Pause';
+    timerInterval = setInterval(() => {
+      timerSeconds++;
+      updateTimerDisplay();
+    }, 1000);
+  } else {
+    timerRunning = false;
+    btn.textContent = 'Resume';
+    clearInterval(timerInterval);
+  }
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerSeconds = 0;
+  updateTimerDisplay();
+  const btn = document.getElementById('timerBtn');
+  if (btn) btn.textContent = 'Start';
+  const fill = document.getElementById('timerBarFill');
+  if (fill) { fill.style.width = '0%'; fill.style.background = 'var(--accent)'; }
+  const val = document.getElementById('timerValue');
+  if (val) val.style.color = 'var(--text-secondary)';
+}
+
+// ─── Session Score ──────────────────────────────────────────────────────
+function updateSessionScore() {
+  if (sessionScores.length === 0) return;
+  const avg = sessionScores.reduce((a, b) => a + b.score, 0) / sessionScores.length;
+  const pct = (avg / 10) * 100;
+
+  // Sidebar
+  document.getElementById('sidebarScore').innerHTML = `
+    <div style="font-size:22px;font-weight:600;font-family:var(--serif);color:var(--accent);line-height:1">${avg.toFixed(1)}<span style="font-size:13px;color:var(--text-light);font-family:var(--sans);font-weight:400"> / 10</span></div>
+    <div style="font-size:11px;color:var(--text-secondary);margin-top:3px">${sessionScores.length} answer${sessionScores.length > 1 ? 's' : ''} evaluated</div>
+    <div style="background:var(--border);border-radius:2px;height:4px;margin-top:8px;overflow:hidden">
+      <div style="height:100%;width:${pct}%;background:${avg>=7?'var(--accent)':avg>=5?'var(--amber)':'var(--red)'};border-radius:2px;transition:width 0.4s"></div>
+    </div>
+  `;
+
+  // In-practice bar
+  const bar = document.getElementById('sessionScoreBar');
+  bar.style.display = 'block';
+  document.getElementById('sessionScoreText').textContent = `Avg: ${avg.toFixed(1)} / 10 across ${sessionScores.length} answer${sessionScores.length > 1 ? 's' : ''}`;
+  document.getElementById('sessionScoreFill').style.width = pct + '%';
+  document.getElementById('sessionScoreFill').style.background = avg >= 7 ? 'var(--accent)' : avg >= 5 ? 'var(--amber)' : 'var(--red)';
+
+  // History chips
+  const hist = document.getElementById('sessionHistory');
+  hist.innerHTML = sessionScores.map(s => `
+    <span title="${s.qShort}: ${s.score}/10" style="font-size:11px;padding:3px 9px;border-radius:12px;border:1px solid ${s.score>=7?'#a7d3b8':s.score>=5?'#e6c078':'#e8a0a0'};background:${s.score>=7?'var(--accent-light)':s.score>=5?'var(--amber-light)':'var(--red-light)'};color:${s.score>=7?'var(--accent)':s.score>=5?'var(--amber)':'var(--red)'};cursor:default">
+      ${s.qShort} · ${s.score}
+    </span>
+  `).join('');
+}
+
+// ─── Practice ──────────────────────────────────────────────────────────
+function onSelectQ() {
+  const val = document.getElementById('qSelect').value;
+  const qDisplay = document.getElementById('practiceQuestionDisplay');
+  const aArea = document.getElementById('answerArea');
+  if (!val) { qDisplay.style.display = 'none'; aArea.style.display = 'none'; return; }
+  const q = practiceQs[val];
+  document.getElementById('activeQText').textContent = q.text;
+  qDisplay.style.display = 'block';
+  aArea.style.display = 'block';
+  document.getElementById('answerInput').value = '';
+  document.getElementById('charCount').textContent = '0';
+  document.getElementById('evalBtn').disabled = true;
+  document.getElementById('feedbackPanel').classList.remove('show');
+  resetTimer();
+}
+
+function onTypeAnswer() {
+  const val = document.getElementById('answerInput').value;
+  document.getElementById('charCount').textContent = val.length;
+  document.getElementById('evalBtn').disabled = val.trim().length < 40;
+}
+
+function clearPractice() {
+  document.getElementById('answerInput').value = '';
+  document.getElementById('charCount').textContent = '0';
+  document.getElementById('evalBtn').disabled = true;
+  document.getElementById('feedbackPanel').classList.remove('show');
+  resetTimer();
+}
+
+async function runEval() {
+  const qKey = document.getElementById('qSelect').value;
+  const answer = document.getElementById('answerInput').value.trim();
+  const q = practiceQs[qKey];
+  const btn = document.getElementById('evalBtn');
+  const panel = document.getElementById('feedbackPanel');
+  const content = document.getElementById('feedbackContent');
+  const scorePill = document.getElementById('scorePill');
+
+  // Stop timer when submitting
+  if (timerRunning) {
+    clearInterval(timerInterval);
+    timerRunning = false;
+    const tb = document.getElementById('timerBtn');
+    if (tb) tb.textContent = 'Start';
+  }
+  const timeTaken = timerSeconds;
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Evaluating...';
+  panel.classList.add('show');
+  content.innerHTML = '<span class="spinner"></span> Analysing your answer...';
+  scorePill.textContent = '—';
+  scorePill.className = 'score-pill score-loading';
+
+  try {
+    const timeNote = timeTaken > 0 ? ` The candidate took ${formatTime(timeTaken)} to write the answer (target is ~2 minutes for a spoken answer).` : '';
+    const GEMINI_KEY = 'AIzaSyBqMuYJGqPhLhVW9eXuAhfj-R0WJCRyqFU';
+    const prompt = `You are a senior interview coach evaluating interview answers for a Scheduling & Operations Analyst role at an energy trading company. Return ONLY a valid JSON object — no markdown, no backticks, no explanation before or after.
+
+Role context: ${q.context}
+
+Interview question: "${q.text}"
+
+Candidate answer: "${answer}"${timeNote}
+
+IMPORTANT: Even if the answer is nonsensical, too short, irrelevant, or very poor quality, you must still return valid JSON. Give a low score (1-3) and explain what was wrong. Never refuse to evaluate.
+
+Return a JSON object with EXACTLY these keys:
+{
+  "score": <integer 1-10>,
+  "verdict": "<one sentence max 20 words>",
+  "strengths": ["<thing 1>", "<thing 2>"],
+  "improvements": ["<improvement 1>", "<improvement 2>", "<improvement 3>"],
+  "suggestion": "<one concrete sentence>",
+  "timeNote": "<one sentence on pacing, or empty string>"
+}
+
+Score guide: 1-3 = poor/irrelevant, 4-5 = partial, 6-7 = solid, 8-9 = strong, 10 = exceptional. Be direct. Penalise vague answers and lack of specific examples.`;
+
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: { temperature: 0.3, maxOutputTokens: 1000 }
+        })
+      }
+    );
+
+    const data = await res.json();
+
+    // Handle Gemini safety blocks or empty responses
+    if (data.error) {
+      throw new Error(`API error: ${data.error.message}`);
+    }
+    if (!data.candidates || data.candidates.length === 0) {
+      throw new Error('No response from Gemini — the answer may have triggered a safety filter. Try rephrasing.');
+    }
+
+    const raw = data.candidates[0]?.content?.parts?.[0]?.text || '';
+    if (!raw) throw new Error('Empty response from Gemini.');
+
+    // Strip markdown fences if present — Gemini sometimes wraps JSON despite instructions
+    const clean = raw.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim();
+
+    let result;
+    try {
+      result = JSON.parse(clean);
+    } catch (parseErr) {
+      // If JSON parse fails, try to extract JSON object from the text
+      const jsonMatch = clean.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        result = JSON.parse(jsonMatch[0]);
+      } else {
+        throw new Error('Could not parse response as JSON.');
+      }
+    }
+
+    // Validate required fields exist
+    if (typeof result.score !== 'number') result.score = 3;
+    if (!result.verdict) result.verdict = 'Answer was too brief or unclear to fully evaluate.';
+    if (!Array.isArray(result.strengths)) result.strengths = ['Attempted to answer the question.'];
+    if (!Array.isArray(result.improvements)) result.improvements = ['Provide a specific real-world example.', 'Structure using Situation → Action → Result.'];
+    if (!result.suggestion) result.suggestion = 'Try again with a concrete example from your experience.';
+    if (!result.timeNote) result.timeNote = '';
+
+    const s = result.score;
+    scorePill.textContent = `${s} / 10`;
+    scorePill.className = 'score-pill ' + (s >= 7 ? 'score-high' : s >= 5 ? 'score-mid' : 'score-low');
+
+    const timeHTML = (result.timeNote && timeTaken > 0)
+      ? `<div style="font-size:12px;color:var(--text-secondary);margin-top:10px;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius)">⏱ ${result.timeNote}</div>`
+      : '';
+
+    content.innerHTML = `
+      <p class="verdict">${result.verdict}</p>
+      <div class="fb-section">
+        <div class="fb-section-title fb-positive">Strengths</div>
+        <ul class="fb-list">${result.strengths.map(s => `<li>${s}</li>`).join('')}</ul>
+      </div>
+      <div class="fb-section">
+        <div class="fb-section-title fb-improve">Areas to improve</div>
+        <ul class="fb-list">${result.improvements.map(s => `<li>${s}</li>`).join('')}</ul>
+      </div>
+      <div class="suggestion-box"><strong>Try this:</strong> ${result.suggestion}</div>
+      ${timeHTML}
+    `;
+
+    // Record in session
+    sessionScores.push({ qKey, qShort: q.short, score: s });
+    updateSessionScore();
+
+  } catch (e) {
+    console.error('Evaluation error:', e);
+    content.innerHTML = `
+      <p style="color:var(--red);font-weight:500;margin-bottom:6px">Evaluation failed</p>
+      <p style="font-size:12px;color:var(--text-secondary);line-height:1.6">${e.message || 'Unknown error. Check your internet connection and try again.'}</p>
+    `;
+    scorePill.textContent = 'Error';
+    scorePill.className = 'score-pill score-low';
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Evaluate Answer';
+}
+</script>
+<!-- Mobile bottom nav -->
+<nav class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-inner">
+    <button class="mobile-nav-btn active" onclick="mobileNav('overview', this)">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Overview
+    </button>
+    <button class="mobile-nav-btn" onclick="mobileNav('practice', this)">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+      Practice
+    </button>
+    <button class="mobile-nav-btn" onclick="mobileNav('behavioural', this)">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      Behaviour
+    </button>
+    <button class="mobile-nav-btn" onclick="mobileNav('technical-markets', this)">
+      <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Markets
+    </button>
+    <button class="mobile-nav-btn" onclick="mobileNav('technical-ops', this)">
+      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      Live Ops
+    </button>
+    <button class="mobile-nav-btn" onclick="mobileNav('technical-data', this)">
+      <svg viewBox="0 0 24 24"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+      Data
+    </button>
+    <button class="mobile-nav-btn" onclick="mobileNav('motivation', this)">
+      <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      Motivation
+    </button>
+    <button class="mobile-nav-btn" onclick="mobileNav('resources', this)">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      PDFs
+    </button>
+    <button class="mobile-nav-btn" onclick="mobileNav('sources', this)">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Sources
+    </button>
+  </div>
+</nav>
+
+</body>
+</html>
